@@ -221,9 +221,25 @@
                  
             }
         }
+		function isLayer(obj){ //判断对象是否为层的函数 
+/*不用 style 而用 currentStyle 的原因是因为有些层不是直接在标签内写 CSS 的，这时用 style 取不到值*/ 
+with(obj.currentStyle) //返回布尔值true或false 
+return (position=="absolute"&amp;amp;&amp;amp;left!="") 
+} 
+//800为800X600分辨率下窗口最大化时document.body.offsetWidth的值 
+var iWidth=800 
+window.onload=function init(){ 
+//匹配页面中所有标签名为DIV元素，以数组形式返回对象 
+var divs=document.getElementsByTagName("DIV") 
+for(var i=0;i<divs.length;i++)//遍历所有DIV标签 
+if(isLayer(divs[i]))//判断对象是否为层，是则调整它的 X 坐标 
+divs[i].runtimeStyle.posLeft=parseInt(divs[i].currentStyle.left)+(document.body.offsetWidth-iWidth)/2 
+iWidth=document.body.offsetWidth //保存当前文档显示区域的宽度 
+} 
      </script>
+	 
 </head>
-<body>
+<body  onresize="init()">
 <div id="Layer1"></div>
 <div id="slide"> <a id="btnLeft" href="javascript:void(0);" ></a> <a id="btnRight" href="javascript:void(0);" ></a>
     <!--when change next image:style="left: -(n-1)*800px;"-->
@@ -263,7 +279,7 @@
                 <li align="center"><a href="八班.html" class="STYLE1">八班</a></li>  
         </ul>      
     </ul>    </th>
-     <th width="421" scope="col"><span class="STYLE1"><a href="教学资源.html">返回主页</a></span></th>
+     <th width="421" scope="col"><span class="STYLE1"><a href="index.html">返回主页</a></span></th>
     <th width="399" scope="col"><span class="STYLE1"><a href="作品展示.html">作品展示</a></span></th>
   </tr>
 </table>
